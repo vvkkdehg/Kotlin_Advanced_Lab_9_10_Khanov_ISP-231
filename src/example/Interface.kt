@@ -1,3 +1,5 @@
+package example
+
 interface Movable{
     var speed: Int
     val model: String
@@ -62,13 +64,13 @@ fun travel(obj: Movable) = obj.move()
 fun main() {
     val player = MediaPlayer()
     player.play()
-//    val car = Car("LADA", "134LAD")
-//    val aircraft: Movable = Aircraft("Boeing", "737")
-//    travel(car)
-//    travel(aircraft)
+//    val car = example.Car("LADA", "134LAD")
+//    val aircraft: example.Movable = example.Aircraft("Boeing", "737")
+//    example.travel(car)
+//    example.travel(aircraft)
 //    aircraft.move()
 //    aircraft.stop()
-//    val pavel = WorkingStudent("Pavel")
+//    val pavel = example.WorkingStudent("Pavel")
 //    pavel.work()
 //    pavel.study()
 }
