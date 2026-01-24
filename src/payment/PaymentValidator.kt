@@ -8,7 +8,8 @@ class PaymentValidator {
             CardType.MIR -> payment.card.length == 16
                     && payment.card.startsWith("2")
             CardType.UNKNOWN -> payment.card.length == 16
-        } && payment.sum > 0
+         && payment.sum > 0
+        }
     }
 }
 

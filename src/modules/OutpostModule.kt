@@ -1,5 +1,6 @@
 package modules
 
+import ModuleResult
 import resources.ResourseManager
 
 abstract class OutpostModule (
@@ -10,5 +11,5 @@ abstract class OutpostModule (
         level++
         println("$name улучшен до уровня $level")
     }
-    abstract fun performAction(manager: ResourseManager)
+    abstract fun performAction(manager: ResourseManager) : ModuleResult
 }
