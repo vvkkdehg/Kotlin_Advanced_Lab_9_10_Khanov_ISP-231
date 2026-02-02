@@ -2,7 +2,18 @@ import modules.EnergyGenerator
 import modules.ResearchLab
 import resources.OutpostResource
 import resources.ResourseManager
+object SystemLogger {
+    init {
+        println("SystemLogger инициализирован")
+    }
 
+    fun log(message: String) {
+        println("[LOG] $message")
+    }
+}
+val logger by lazy {
+    SystemLogger
+}
 fun handleModuleResult(result: ModuleResult) {
     when (result) {
         is ModuleResult.Success ->
@@ -47,20 +58,25 @@ fun main() {
 //    println("Платеж 1: $payment1")
 //    println("Платеж 2: $payment2")
 //    println("Одинаковые? ${payment1 == payment2}")
+    logger.log("Запуск базы")
 
     val generator = EnergyGenerator()
     val lab = ResearchLab()
     val manager = ResourseManager()
-
-    manager.add(OutpostResource(id = 1, name = "Minerals", amount = 300))
-    manager.add(OutpostResource(id = 2, name = "Gas", amount = 100))
-
+    val loadedResources = FileStorage.load()
+    loadedResources.forEach { manager.add(it) }
+    if (loadedResources.isEmpty()) {
+        manager.add(OutpostResource(id = 1, name = "Minerals", amountInit = 300))
+        manager.add(OutpostResource(id = 2, name = "Gas", amountInit = 100))
+    }
     val generatorResult = generator.performAction(manager)
     val labResult = lab.performAction(manager)
     handleModuleResult(generatorResult)
     handleModuleResult(labResult)
     println()
     manager.printAll()
+
+    FileStorage.save(manager.getAll())
 }
 
 
